@@ -1,11 +1,11 @@
 web:
   image: 'gitlab/gitlab-ee:latest'
   restart: always
-  hostname: 'gitlab.criscond.co.uk'
+  hostname: 'hostname'
   container_name: 'gitlab-web'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'https://gitlab.criscond.co.uk/'
+      external_url 'https://hostname/'
       gitlab_rails['lfs_enabled'] = true
       gitlab_rails['gitlab_shell_ssh_port'] = 22222
       gitlab_rails['smtp_enable'] = true
@@ -28,3 +28,4 @@ web:
     - '/srv/gitlab/config:/etc/gitlab'
     - '/srv/gitlab/logs:/var/log/gitlab'
     - '/srv/gitlab/data:/var/opt/gitlab'
+    

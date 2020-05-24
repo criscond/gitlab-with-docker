@@ -1,0 +1,30 @@
+web:
+  image: 'gitlab/gitlab-ee:latest'
+  restart: always
+  hostname: 'gitlab.criscond.co.uk'
+  container_name: 'gitlab-web'
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'https://gitlab.criscond.co.uk/'
+      gitlab_rails['lfs_enabled'] = true
+      gitlab_rails['gitlab_shell_ssh_port'] = 22222
+      gitlab_rails['smtp_enable'] = true
+      gitlab_rails['smtp_address'] = "smtp.gmail.com"
+      gitlab_rails['smtp_port'] = 587
+      gitlab_rails['smtp_user_name'] = "server_email_address@gmail.com"
+      gitlab_rails['smtp_password'] = "strong_password_here"
+      gitlab_rails['smtp_domain'] = "smtp.gmail.com"
+      gitlab_rails['smtp_authentication'] = "login"
+      gitlab_rails['smtp_enable_starttls_auto'] = true
+      gitlab_rails['smtp_tls'] = false
+      gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
+      gitlab_rails['gitlab_email_from'] = 'From_email_address_here'
+      gitlab_rails['gitlab_email_reply_to'] = 'Reply_email_address_here'
+  ports:
+    - '80:80'
+    - '443:443'
+    - '22222:22'
+  volumes:
+    - '/srv/gitlab/config:/etc/gitlab'
+    - '/srv/gitlab/logs:/var/log/gitlab'
+    - '/srv/gitlab/data:/var/opt/gitlab'
